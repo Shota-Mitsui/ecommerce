@@ -8,8 +8,15 @@ Rails.application.routes.draw do
   }
 
   get '/', to: 'pages#home'
+
+  # /adominに付随する/productsパスの設定
   namespace :admin do
     resources :products, only: %i[index show new create edit update]
+  end
+
+  # 顧客用ページ用の/productsパス。/customerはパスに含まれない
+  scope module: :customer do
+    resources :products, only: %i[index show]
   end
 
   get '/up/', to: 'up#index', as: :up
